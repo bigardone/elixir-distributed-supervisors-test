@@ -23,9 +23,11 @@ The `DistributedTest.NodeMonitor`, monitors the existing nodes, and in case one 
 ## Test
 Open three different terminal windows and start one different node in each of them:
 
+```
 $ iex --name n1@127.0.0.1 --erl "-config sys.config" -S mix
 $ iex --name n2@127.0.0.1 --erl "-config sys.config" -S mix
 $ iex --name n3@127.0.0.1 --erl "-config sys.config" -S mix
+```
 
 Try to kill the Server process and watch it restart again. Finish the current node, and watch any od the others
 start the process again.
