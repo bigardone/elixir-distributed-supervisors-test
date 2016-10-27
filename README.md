@@ -1,24 +1,31 @@
-# DistributedTest
+# Distributed supervisors test
 
-**TODO: Add description**
+## Background
+We need a worker which performs a task periodically.
 
-## Installation
+## What we want
+If we distribute the application in multiple nodes, we want the worker process to be running just once.
+If the process dies, we want the current node to start it again.
+If the node running the process dies, we want a different node to take care of restarting the worker again.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+## Solution
+We have 3 different components:
 
-  1. Add `distributed_test` to your list of dependencies in `mix.exs`:
+- The `DistributedTest.Server` worker, which is registered globally.
+- The `DistributedTest.ServerSupervisor` which tries to start the previous worker.
+- The `DistributedTest.NodeMonitor` which checks for nodes dying.
 
-    ```elixir
-    def deps do
-      [{:distributed_test, "~> 0.1.0"}]
-    end
-    ```
 
-  2. Ensure `distributed_test` is started before your application:
+The application starts the three of them.
+When the `DistributedTest.Server` gets started, it will return the new pid or the existing one, if it was started on a different node, and it will begin doing its periodical task.
+The `DistributedTest.NodeMonitor`, monitors the existing nodes, and in case one dies, it tries to start a new `DistributedTest.Server` process using the `DistributedTest.ServerSupervisor`.
 
-    ```elixir
-    def application do
-      [applications: [:distributed_test]]
-    end
-    ```
+## Test
+Open three different terminal windows and start one different node in each of them:
 
+$ iex --name n1@127.0.0.1 --erl "-config sys.config" -S mix
+$ iex --name n2@127.0.0.1 --erl "-config sys.config" -S mix
+$ iex --name n3@127.0.0.1 --erl "-config sys.config" -S mix
+
+Try to kill the Server process and watch it restart again. Finish the current node, and watch any od the others
+start the process again.
