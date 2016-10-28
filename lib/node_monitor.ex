@@ -12,7 +12,7 @@ defmodule DistributedTest.NodeMonitor do
     {:ok, spawn_link fn ->
       :global_group.monitor_nodes true
 
-      monitor
+      monitor()
     end}
   end
 
@@ -27,6 +27,6 @@ defmodule DistributedTest.NodeMonitor do
         ServerSupervisor.start_worker
     end
 
-    monitor
+    monitor()
   end
 end
