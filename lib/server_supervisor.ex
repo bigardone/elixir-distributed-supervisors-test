@@ -1,4 +1,8 @@
 defmodule DistributedTest.ServerSupervisor do
+  @moduledoc """
+  Main worker supervisor. It starts the `DistributedTest.Server` worker.
+  """
+
   use Supervisor
 
   alias DistributedTest.Server

@@ -1,9 +1,14 @@
 defmodule DistributedTest.Server do
+  @moduledoc """
+  Main worker which performs a task every @time. It's registerd
+  globally accross all the connected nodes.
+  """
+  
   use GenServer
 
   require Logger
 
-  # Client
+  @time 2_000
 
   def start_link() do
     case GenServer.start_link(__MODULE__, %{},name: {:global, __MODULE__}) do
@@ -31,6 +36,6 @@ defmodule DistributedTest.Server do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 2_000)
+    Process.send_after(self(), :work, @time)
   end
 end

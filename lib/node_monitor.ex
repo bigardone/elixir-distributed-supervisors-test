@@ -1,4 +1,9 @@
 defmodule DistributedTest.NodeMonitor do
+  @moduledoc """
+    Monitors the nodes and notifies about any node joining or leaving the cluster.
+    If a node leaves, it calls the `ServerSupervisor.start_worker` function.
+  """
+
   alias DistributedTest.ServerSupervisor
 
   require Logger
@@ -11,11 +16,11 @@ defmodule DistributedTest.NodeMonitor do
     end}
   end
 
-  def monitor do
+  defp monitor do
     receive do
       {:nodeup, node}   ->
         Logger.info "---- Node #{node} joined"
-        
+
       {:nodedown, node} ->
         Logger.info "---- Node #{node} left"
 
