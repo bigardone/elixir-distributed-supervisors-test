@@ -9,4 +9,6 @@ defmodule DistributedTest.ServerSupervisor do
     children = [worker(Server, [], restart: :transient)]
     supervise(children, strategy: :simple_one_for_one)
   end
+
+  def start_worker, do: Supervisor.start_child(__MODULE__, [])
 end

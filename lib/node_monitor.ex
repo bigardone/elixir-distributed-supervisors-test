@@ -15,10 +15,11 @@ defmodule DistributedTest.NodeMonitor do
     receive do
       {:nodeup, node}   ->
         Logger.info "---- Node #{node} joined"
+        
       {:nodedown, node} ->
         Logger.info "---- Node #{node} left"
 
-        Supervisor.start_child(ServerSupervisor, [])
+        ServerSupervisor.start_worker
     end
 
     monitor
