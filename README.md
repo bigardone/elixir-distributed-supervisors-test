@@ -29,8 +29,9 @@ $ iex --name n2@127.0.0.1 --erl "-config sys.config" -S mix
 $ iex --name n3@127.0.0.1 --erl "-config sys.config" -S mix
 ```
 
-Try to kill the Server process and watch it restart again. Finish the current node, and watch any od the others
-start the process again.
+Try to kill the `DistributedTest.Server` process and watch it restart again. Finish the node session where it is currently running, and watch how any of the other nodes starts the process again.
+
+Feedback and suggestions are welcomed :)
 
 
 ![http://g.recordit.co/rbxRoxoHXc.gif](http://g.recordit.co/rbxRoxoHXc.gif)
