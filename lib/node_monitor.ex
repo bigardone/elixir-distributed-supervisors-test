@@ -1,6 +1,8 @@
 defmodule DistributedTest.NodeMonitor do
   alias DistributedTest.ServerSupervisor
 
+  require Logger
+
   def start_link do
     {:ok, spawn_link fn ->
       :global_group.monitor_nodes true
@@ -12,9 +14,9 @@ defmodule DistributedTest.NodeMonitor do
   def monitor do
     receive do
       {:nodeup, node}   ->
-        IO.puts "---- NodeMonitor: #{node} joined"
+        Logger.info "---- Node #{node} joined"
       {:nodedown, node} ->
-        IO.puts "---- NodeMonitor: #{node} left"
+        Logger.info "---- Node #{node} left"
 
         Supervisor.start_child(ServerSupervisor, [])
     end

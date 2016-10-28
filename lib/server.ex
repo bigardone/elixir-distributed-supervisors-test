@@ -8,10 +8,10 @@ defmodule DistributedTest.Server do
   def start_link() do
     case GenServer.start_link(__MODULE__, %{},name: {:global, __MODULE__}) do
       {:ok, pid} ->
-        Logger.info "---- Started #{__MODULE__} master"
+        Logger.info "---- #{__MODULE__} worker started"
         {:ok, pid}
       {:error, {:already_started, pid}} ->
-        Logger.info "---- Started #{__MODULE__} slave"
+        Logger.info "---- #{__MODULE__} worker already running"
         {:ok, pid}
     end
   end
@@ -31,6 +31,6 @@ defmodule DistributedTest.Server do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 1_000) # Each minute
+    Process.send_after(self(), :work, 2_000)
   end
 end
