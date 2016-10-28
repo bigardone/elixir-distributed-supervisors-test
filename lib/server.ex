@@ -11,7 +11,7 @@ defmodule DistributedTest.Server do
   @time 2_000
 
   def start_link() do
-    case GenServer.start_link(__MODULE__, %{},name: {:global, __MODULE__}) do
+    case GenServer.start_link(__MODULE__, %{}, name: {:global, __MODULE__}) do
       {:ok, pid} ->
         Logger.info "---- #{__MODULE__} worker started"
         {:ok, pid}
@@ -22,7 +22,7 @@ defmodule DistributedTest.Server do
   end
 
   def init(state) do
-    schedule_work
+    schedule_work()
 
     {:ok, state}
   end
@@ -30,7 +30,7 @@ defmodule DistributedTest.Server do
   def handle_info(:work, state) do
     Logger.info "---- Working..."
 
-    schedule_work
+    schedule_work()
 
     {:noreply, state}
   end
