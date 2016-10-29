@@ -1,7 +1,7 @@
 defmodule DistributedTest do
   use Application
 
-  alias DistributedTest.{NodeMonitor, Server, ServerSupervisor}
+  alias DistributedTest.Server
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -12,8 +12,6 @@ defmodule DistributedTest do
     children = [
       # Starts a worker by calling: DistributedTest.Worker.start_link(arg1, arg2, arg3)
       # worker(DistributedTest.Worker, [arg1, arg2, arg3]),
-      supervisor(ServerSupervisor, []),
-      worker(NodeMonitor, []),
       worker(Server, [])
     ]
 
