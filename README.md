@@ -1,5 +1,7 @@
 # Distributed supervisors test
 
+#### Version by [princemaple](https://github.com/princemaple)
+
 ## Background
 We need a worker which performs a task periodically.
 
