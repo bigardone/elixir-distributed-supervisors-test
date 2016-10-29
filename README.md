@@ -8,7 +8,7 @@ If we distribute the application in multiple nodes, we want the worker process t
 If the process dies, we want the current node to start it again.
 If the node running the process dies, we want a different node to take care of restarting the worker again.
 
-# Alternative solutions
+## Alternative solutions
 - https://github.com/bigardone/elixir-distributed-supervisors-test/tree/princemaple-version by [princemaple](https://github.com/princemaple)
 
 ## Original solution
