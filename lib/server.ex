@@ -3,7 +3,7 @@ defmodule DistributedTest.Server do
   Main worker which performs a task every @time. It's registerd
   globally accross all the connected nodes.
   """
-  
+
   use GenServer
 
   require Logger
@@ -17,6 +17,8 @@ defmodule DistributedTest.Server do
         {:ok, pid}
       {:error, {:already_started, pid}} ->
         Logger.info "---- #{__MODULE__} worker already running"
+
+        Process.link(pid)
         {:ok, pid}
     end
   end
