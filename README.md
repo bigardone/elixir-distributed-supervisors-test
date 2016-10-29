@@ -13,7 +13,7 @@ If the node running the process dies, we want a different node to take care of r
 ## Solution
 If the `DistributedTest.Server` process already exists while trying to start it by any of the nodes,
 it will link its **PID**. Therefore, if the node running the worker happens to die, the other nodes
-will be automatically notified and will try to restart it again.
+will be automatically notified, trying to restart a new `DistributedTest.Server` process.
 
 ## Test
 Open three different terminal windows and start one different node in each of them:
