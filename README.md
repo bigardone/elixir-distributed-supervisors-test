@@ -9,16 +9,9 @@ If the process dies, we want the current node to start it again.
 If the node running the process dies, we want a different node to take care of restarting the worker again.
 
 ## Solution
-We have 3 different components:
-
-- The `DistributedTest.Server` worker, which is registered globally.
-- The `DistributedTest.ServerSupervisor` which tries to start the previous worker.
-- The `DistributedTest.NodeMonitor` which checks for nodes dying.
-
-
-The application starts the three of them.
-When the `DistributedTest.Server` gets started, it will return the new pid or the existing one, if it was started on a different node, and it will begin doing its periodical task.
-The `DistributedTest.NodeMonitor`, monitors the existing nodes, and in case one dies, it tries to start a new `DistributedTest.Server` process using the `DistributedTest.ServerSupervisor`.
+If the `DistributedTest.Server` process already exists while trying to start it by any of the nodes,
+it will link its **PID**. Therefore, if the node running the worker happens to die, the other nodes
+will be automatically notified and will try to restart it again.
 
 ## Test
 Open three different terminal windows and start one different node in each of them:
